@@ -75,11 +75,20 @@ class MarathonUtil {
      * @param array $request
      * @return \SimpleXMLElement
      */
-    static function createXML($request) {
-        $xml = new \SimpleXMLElement('<marathon/>');
-        foreach ($request as $name => $value) {
-            $xml->addChild($name, $value);
-        }
+    static function addXMLData(\SimpleXMLElement $xml, array $data) {
+        array_walk($data, function ($value, $key) use ($xml) {
+            if (is_array($value)) {
+                $child = $xml->addChild($key);
+                self::addXMLData($child, $value);
+            } else {
+                $xml->addChild($key, $value);
+            }
+        });
+    }
+
+    static function createXML($data, $root = null) {
+        $xml = new \SimpleXMLElement($root ? '<' . $root . '/>' : '<marathon/>');
+        self::addXMLData($xml, $data);
         $dom = dom_import_simplexml($xml)->ownerDocument;
         $dom->encoding = "UTF-8";
         $dom->formatOutput = true;
