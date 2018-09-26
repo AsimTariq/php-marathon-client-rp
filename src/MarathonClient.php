@@ -401,7 +401,41 @@ class MarathonClient {
     public function change_client_status($client_id) {
     }
 
-    public function create_order_direct($client_id) {
+    public function create_order_direct($order_data) {
+        foreach($order_data as $data){
+            $media_id = $data['media_id'];
+            $headline = $data['headline'];
+            $client_contact = $data['client_contact'];
+            if(isset($data['order_id'])){
+                $order_id = $data['order_id'];
+            }else{$order_id = "";}
+            $plan_number = $data['plan_number'];
+            $insertion_date = $data['insertion_date']; //NOW();?
+            $start_date = $data['insertion_start_date'];
+            $end_date = $data['insertion_end_date'];
+            $PO_number = $data['PO_number'];
+            $price_code = $data['price_code'];
+            $gross = $data['gross'];
+        }
+        return $this->__request(__FUNCTION__, [
+            "media_id" => $media_id,
+            "headline" => $headline,
+            "agreement_id" => self::AGREEMENT_ID,
+            "client_contact" => $client_contact,
+            "order_id" => $order_id,
+            "plan_number" => $plan_number,
+            "insertion" => [
+                "insertion_date" => $insertion_date,
+                "start_date" => $start_date,
+                "end_date" => $end_date,
+                "PO_number" => $PO_number,
+                "price_row" => [
+                    "price_code" => $price_code,
+                    "gross" => $gross
+                ],
+
+            ],
+        ]);
     }
 
     public function delete_order($client_id) {
