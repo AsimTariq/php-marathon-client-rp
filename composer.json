@@ -1,5 +1,5 @@
 {
-  "name": "mijohansen/php-marathon-client",
+  "name": "mijohansen/php-marathon-client-rp",
   "description": "Simple library to connect to Kalin Setterberg's Marathon standard API.",
   "type": "library",
   "version": "0.1.3",
@@ -8,8 +8,8 @@
   "license": "Apache-2.0",
   "authors": [
     {
-      "name": "Michael Johansen",
-      "email": "michael.johansen@gmail.com"
+      "name": "Asim Tariq",
+      "email": "asim@redperformance.no"
     }
   ],
   "require": {
