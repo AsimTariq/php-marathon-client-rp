@@ -17,6 +17,9 @@ class MarathonClient {
     const INVOICE = "invoice";
     const FEECODE = "feecode";
     const ORDER_NUMBER = "order_number";
+    const CAMPAIGN = "campaigns";
+
+    const AGREEMENT_ID = "REDP";
 
     const CONF_SERVER_ADDRESS = "server_address";
     const CONF_PROGRAM = "program";
@@ -617,6 +620,22 @@ class MarathonClient {
     }
 
     public function create_plan($plan_data) {
+        foreach ($plan_data as $data) {
+            $name = $data['name'];
+            $client_id = $data['client_id'];
+            $invoice_data = $data['invoice_data'];
+            $owner_id = $data['owner_id'];
+            $media_type = $data['media_type'];
+
+        }
+        return $this->__request(__FUNCTION__, [
+            "name" => $name,
+            "client_id" => $client_id,
+            "agreement_id" => self::AGREEMENT_ID,
+            "invoice_data" => $invoice_data,
+            "owner_id" => $owner_id,
+            "media_type" => $media_type,
+        ]);
     }
 
     /**
