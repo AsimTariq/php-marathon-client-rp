@@ -402,36 +402,30 @@ class MarathonClient {
     }
 
     public function create_order_direct($order_data) {
-        foreach($order_data as $data){
-            $media_id = $data['media_id'];
-            $headline = $data['headline'];
-            $client_contact = $data['client_contact'];
-            if(isset($data['order_id'])){
-                $order_id = $data['order_id'];
-            }else{$order_id = "";}
-            $plan_number = $data['plan_number'];
-            $insertion_date = $data['insertion_date']; //NOW();?
-            $start_date = $data['insertion_start_date'];
-            $end_date = $data['insertion_end_date'];
-            $PO_number = $data['PO_number'];
-            $price_code = $data['price_code'];
-            $gross = $data['gross'];
+        $data_flatten = [];
+        array_walk_recursive($order_data, function ($v, $k) use (&$data_flatten) {
+            $data_flatten[$k] = $v;
+        });
+
+        if (!isset($data_flatten['order_id'])) {
+            $data_flatten['order_id'] = "";
         }
+
         return $this->__request(__FUNCTION__, [
-            "media_id" => $media_id,
-            "headline" => $headline,
+            "media_id" => $data_flatten['media_id'],
+            "headline" => $data_flatten['headline'],
             "agreement_id" => self::AGREEMENT_ID,
-            "client_contact" => $client_contact,
-            "order_id" => $order_id,
-            "plan_number" => $plan_number,
+            "client_contact" => $data_flatten['client_contact'],
+            "order_id" => $data_flatten['order_id'],
+            "plan_number" => $data_flatten['plan_number'],
             "insertion" => [
-                "insertion_date" => $insertion_date,
-                "start_date" => $start_date,
-                "end_date" => $end_date,
-                "PO_number" => $PO_number,
+                "insertion_date" => $data_flatten['insertion_date'],
+                "start_date" => $data_flatten['start_date'],
+                "end_date" => $data_flatten['end_date'],
+                "PO_number" => $data_flatten['PO_number'],
                 "price_row" => [
-                    "price_code" => $price_code,
-                    "gross" => $gross
+                    "price_code" => $data_flatten['price_code'],
+                    "gross" => $data_flatten['gross']
                 ],
 
             ],
