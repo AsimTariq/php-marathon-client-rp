@@ -407,6 +407,8 @@ class MarathonClient {
             $data_flatten[$k] = $v;
         });
 
+        // If present = replace
+        // Else create new order with entries(insertion)
         if (!isset($data_flatten['order_id'])) {
             $data_flatten['order_id'] = "";
         }
