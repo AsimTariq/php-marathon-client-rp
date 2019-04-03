@@ -41,7 +41,7 @@ class MarathonUtil {
         return $data;
     }
 
-    static function raw_fetch($url, $request, $fetch_with_curl = true) {
+    static function raw_fetch($url, $request, $fetch_with_curl = false) {
 
         $request_xml = self::createXML($request);
         $headers = array('Content-Type: text/xml');
