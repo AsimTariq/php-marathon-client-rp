@@ -25,8 +25,11 @@ class MarathonUtil {
 
     static function fetch_native($url, $headers, $request) {
         syslog(LOG_INFO, "fetch_native initiated for request");
+        $proxy = 'tcp://35.229.113.175:443';
         $opts = [
             "http" => [
+                'proxy' => $proxy,
+                'request_fulluri'=> true,
                 "method" => "POST",
                 "header" => implode("\r\n", $headers),
                 'timeout' => 500,
