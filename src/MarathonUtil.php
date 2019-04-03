@@ -5,6 +5,8 @@ namespace Kase;
 class MarathonUtil {
 
     static function fetch_with_curl($url, $headers, $request) {
+        syslog(LOG_INFO, "cURL initiated for request");
+        $proxy = '35.229.113.175:443';
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_POST, 1);
@@ -13,11 +15,15 @@ class MarathonUtil {
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 500);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         $data = curl_exec($ch);
+        if (curl_errno($ch)) {
+            throw new \Exception(curl_error($ch));
+        }
         curl_close($ch);
         return $data;
     }
 
     static function fetch_native($url, $headers, $request) {
+        syslog(LOG_INFO, "fetch_native initiated for request");
         $opts = [
             "http" => [
                 "method" => "POST",
