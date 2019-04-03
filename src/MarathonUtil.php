@@ -14,6 +14,7 @@ class MarathonUtil {
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 500);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_PROXY, $proxy);
         $data = curl_exec($ch);
         if (curl_errno($ch)) {
             throw new \Exception(curl_error($ch));
