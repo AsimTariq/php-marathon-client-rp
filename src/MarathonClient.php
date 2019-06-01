@@ -42,7 +42,6 @@ class MarathonClient {
     }
 
     public function get_endpoint_url() {
-        syslog( LOG_INFO , "{$this->marathon_server_address}/cgi-bin/{$this->program}?{$this->password}");
         return "http://{$this->marathon_server_address}/cgi-bin/{$this->program}?{$this->password}";
     }
 

@@ -5,8 +5,7 @@ namespace Kase;
 class MarathonUtil {
 
     static function fetch_with_curl($url, $headers, $request) {
-        syslog(LOG_INFO, "cURL initiated for request");
-        $proxy = '35.229.113.175:443';
+        $proxy = '35.229.113.175:443'; // Compute Engine (Squid)
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_POST, 1);
@@ -24,8 +23,7 @@ class MarathonUtil {
     }
 
     static function fetch_native($url, $headers, $request) {
-        syslog(LOG_INFO, "fetch_native initiated for request");
-        $proxy = 'tcp://35.229.113.175:443';
+        $proxy = 'tcp://35.229.113.175:443'; // Compute Engine (Squid)
         $opts = [
             "http" => [
                 'proxy' => $proxy,
