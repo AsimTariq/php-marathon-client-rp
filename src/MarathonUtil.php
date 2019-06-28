@@ -6,6 +6,7 @@ class MarathonUtil {
 
     static function fetch_with_curl($url, $headers, $request) {
         $proxy = '35.229.113.175:443'; // Compute Engine (Squid)
+        $authenticated = 'proxy:nexus';
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_POST, 1);
@@ -14,6 +15,7 @@ class MarathonUtil {
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 500);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($ch, CURLOPT_PROXY, $proxy);
+        curl_setopt($ch, CURLOPT_PROXYUSERPWD, $authenticated);
         $data = curl_exec($ch);
         if (curl_errno($ch)) {
             throw new \Exception(curl_error($ch));
