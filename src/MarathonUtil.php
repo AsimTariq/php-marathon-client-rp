@@ -14,6 +14,8 @@ class MarathonUtil {
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 500);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
         curl_setopt($ch, CURLOPT_PROXY, $proxy);
         curl_setopt($ch, CURLOPT_PROXYUSERPWD, $authenticated);
         $data = curl_exec($ch);
@@ -33,6 +35,7 @@ class MarathonUtil {
                 "method" => "POST",
                 "header" => implode("\r\n", $headers),
                 'timeout' => 500,
+                "verify" => false,
                 "content" => $request
             ]
         ];

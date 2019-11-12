@@ -42,7 +42,7 @@ class MarathonClient {
     }
 
     public function get_endpoint_url() {
-        return "http://{$this->marathon_server_address}/cgi-bin/{$this->program}?{$this->password}";
+        return "https://{$this->marathon_server_address}/cgi-bin/{$this->program}?{$this->password}";
     }
 
     protected function __request($type, Array $request_data = [], $expected_type = null) {
